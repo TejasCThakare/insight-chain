@@ -14,9 +14,16 @@ class ReasoningDataset(Dataset):
     """Dataset for training reasoning agents."""
     
     def __init__(self, data_file: str, processor, max_length: int = 1024):
+        """
+        Args:
+            data_file: Path to JSON file with training data
+            processor: Qwen2-VL processor
+            max_length: Maximum sequence length
+        """
         self.processor = processor
         self.max_length = max_length
         
+        # Load data
         with open(data_file, 'r') as f:
             self.data = json.load(f)
         
@@ -27,8 +34,11 @@ class ReasoningDataset(Dataset):
     
     def __getitem__(self, idx: int) -> Dict[str, torch.Tensor]:
         item = self.data[idx]
+        
+        # Load image
         image = Image.open(item['image_path']).convert('RGB')
         
+        # Format conversation
         conversation = [
             {
                 "role": "user",
@@ -45,6 +55,7 @@ class ReasoningDataset(Dataset):
             }
         ]
         
+        # Process with Qwen2-VL processor
         text = self.processor.apply_chat_template(
             conversation, 
             tokenize=False, 
@@ -60,7 +71,10 @@ class ReasoningDataset(Dataset):
             return_tensors="pt"
         )
         
+        # Squeeze batch dimension
         inputs = {k: v.squeeze(0) for k, v in inputs.items()}
+        
+        # Create labels for training
         inputs["labels"] = inputs["input_ids"].clone()
         
         return inputs
@@ -83,8 +97,10 @@ class SummaryDataset(Dataset):
     
     def __getitem__(self, idx: int) -> Dict[str, torch.Tensor]:
         item = self.data[idx]
+        
         image = Image.open(item['image_path']).convert('RGB')
         
+        # Different prompt for summary agent
         conversation = [
             {
                 "role": "user",

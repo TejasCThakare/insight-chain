@@ -39,16 +39,20 @@ def prepare_training_data(config_path: str = "configs/data_config.yaml"):
         aokvqa = load_from_disk(str(aokvqa_path))
         
         for idx, sample in enumerate(aokvqa):
+            # Need at least 2 reasoning steps
             if len(sample['rationales']) >= 2:
+                # Save image
                 img_path = images_path / f"aokvqa_{idx}.jpg"
                 sample['image'].save(str(img_path))
                 
+                # Format reasoning chain
                 reasoning_steps = sample['rationales'][:5]
                 reasoning_chain = "\n".join([
                     f"Step {i+1}: {step}" 
                     for i, step in enumerate(reasoning_steps)
                 ])
                 
+                # Get answer
                 if len(sample['direct_answers']) > 0:
                     answer = sample['direct_answers'][0]
                 else:
@@ -72,9 +76,11 @@ def prepare_training_data(config_path: str = "configs/data_config.yaml"):
         
         for idx, sample in enumerate(scienceqa):
             if sample['hint'] and len(sample['hint']) > 20:
+                # Save image
                 img_path = images_path / f"science_{idx}.jpg"
                 sample['image'].save(str(img_path))
                 
+                # Format as reasoning chain
                 reasoning_chain = (
                     f"Step 1: Observing the image and question context.\n"
                     f"Step 2: {sample['hint']}\n"
