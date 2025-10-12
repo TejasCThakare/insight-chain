@@ -1,0 +1,22 @@
+model:
+  base_model: "Qwen/Qwen2-VL-2B-Instruct"
+  reasoning_agent_path: "models/reasoning_agent/final"
+  summary_agent_path: "models/summary_agent/final"
+
+  # Quantization
+  use_4bit: true
+  bnb_4bit_compute_dtype: "float16"
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_use_double_quant: true
+
+  # LoRA configuration
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
+
+  # Inference
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.9
+  do_sample: true
