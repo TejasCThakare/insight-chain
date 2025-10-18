@@ -41,62 +41,71 @@ def prepare_training_data(config_path: str = "configs/data_config.yaml"):
         for idx, sample in enumerate(aokvqa):
             # Need at least 2 reasoning steps
             if len(sample['rationales']) >= 2:
-                # Save image
-                img_path = images_path / f"aokvqa_{idx}.jpg"
-                sample['image'].save(str(img_path))
-                
-                # Format reasoning chain
-                reasoning_steps = sample['rationales'][:5]
-                reasoning_chain = "\n".join([
-                    f"Step {i+1}: {step}" 
-                    for i, step in enumerate(reasoning_steps)
-                ])
-                
-                # Get answer
-                if len(sample['direct_answers']) > 0:
-                    answer = sample['direct_answers'][0]
-                else:
-                    answer = sample['choices'][sample['correct_choice_idx']]
-                
-                train_samples.append({
-                    "id": f"aokvqa_{idx}",
-                    "image_path": str(img_path),
-                    "question": sample['question'],
-                    "reasoning_chain": reasoning_chain,
-                    "final_answer": answer
-                })
+                try:
+                    # Save image
+                    img_path = images_path / f"aokvqa_{idx}.jpg"
+                    sample['image'].save(str(img_path))
+                    
+                    # Format reasoning chain
+                    reasoning_steps = sample['rationales'][:5]
+                    reasoning_chain = "\n".join([
+                        f"Step {i+1}: {step}" 
+                        for i, step in enumerate(reasoning_steps)
+                    ])
+                    
+                    # Get answer
+                    if len(sample['direct_answers']) > 0:
+                        answer = sample['direct_answers'][0]
+                    else:
+                        answer = sample['choices'][sample['correct_choice_idx']]
+                    
+                    train_samples.append({
+                        "id": f"aokvqa_{idx}",
+                        "image_path": str(img_path),
+                        "question": sample['question'],
+                        "reasoning_chain": reasoning_chain,
+                        "final_answer": answer
+                    })
+                except Exception as e:
+                    # Skip problematic samples
+                    continue
         
         print(f"   ✅ Processed {len([s for s in train_samples if 'aokvqa' in s['id']])} A-OKVQA samples")
     
-    # Load ScienceQA
+    # Load ScienceQA (with safety checks)
     print("\n📂 Processing ScienceQA...")
     scienceqa_path = raw_path / "scienceqa"
     if scienceqa_path.exists():
         scienceqa = load_from_disk(str(scienceqa_path))
         
         for idx, sample in enumerate(scienceqa):
-            if sample['hint'] and len(sample['hint']) > 20:
-                # Save image
-                img_path = images_path / f"science_{idx}.jpg"
-                sample['image'].save(str(img_path))
-                
-                # Format as reasoning chain
-                reasoning_chain = (
-                    f"Step 1: Observing the image and question context.\n"
-                    f"Step 2: {sample['hint']}\n"
-                    f"Step 3: Analyzing the given choices.\n"
-                    f"Step 4: {sample['solution']}"
-                )
-                
-                answer = sample['choices'][sample['answer']]
-                
-                train_samples.append({
-                    "id": f"science_{idx}",
-                    "image_path": str(img_path),
-                    "question": sample['question'],
-                    "reasoning_chain": reasoning_chain,
-                    "final_answer": answer
-                })
+            # Check if image exists AND hint exists
+            if sample.get('image') is not None and sample.get('hint') and len(sample['hint']) > 20:
+                try:
+                    # Save image
+                    img_path = images_path / f"science_{idx}.jpg"
+                    sample['image'].save(str(img_path))
+                    
+                    # Format as reasoning chain
+                    reasoning_chain = (
+                        f"Step 1: Observing the image and question context.\n"
+                        f"Step 2: {sample['hint']}\n"
+                        f"Step 3: Analyzing the given choices.\n"
+                        f"Step 4: {sample['solution']}"
+                    )
+                    
+                    answer = sample['choices'][sample['answer']]
+                    
+                    train_samples.append({
+                        "id": f"science_{idx}",
+                        "image_path": str(img_path),
+                        "question": sample['question'],
+                        "reasoning_chain": reasoning_chain,
+                        "final_answer": answer
+                    })
+                except Exception as e:
+                    # Skip samples with issues
+                    continue
         
         print(f"   ✅ Processed {len([s for s in train_samples if 'science' in s['id']])} ScienceQA samples")
     
