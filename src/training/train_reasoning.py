@@ -14,7 +14,7 @@ import yaml
 from pathlib import Path
 
 from src.data.dataset import ReasoningDataset
-from src.training.utils import setup_model_for_training, get_quantization_config
+from src.training.utils import setup_model_for_training
 
 
 def train_reasoning_agent(
@@ -44,19 +44,20 @@ def train_reasoning_agent(
     else:
         print("⚠️ No GPU detected! Training will be very slow.")
     
-    # Load model with quantization
+    # Load model WITHOUT quantization (FP16 is enough!)
     print(f"\n📥 Loading {model_config['base_model']}...")
-    
-    bnb_config = get_quantization_config(model_config)
     
     model = Qwen2VLForConditionalGeneration.from_pretrained(
         model_config['base_model'],
-        quantization_config=bnb_config,
         device_map="auto",
-        torch_dtype=torch.float16
+        torch_dtype=torch.float16,
+        trust_remote_code=True
     )
     
-    processor = AutoProcessor.from_pretrained(model_config['base_model'])
+    processor = AutoProcessor.from_pretrained(
+        model_config['base_model'],
+        trust_remote_code=True
+    )
     
     # Setup LoRA
     print("\n🔧 Setting up LoRA training...")
