@@ -1,15 +1,14 @@
 """Training utilities."""
 
 import torch
-from transformers import BitsAndBytesConfig
-from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+from peft import LoraConfig, get_peft_model
 
 
 def setup_model_for_training(model, model_config: dict):
-    """Prepare model for QLoRA training."""
+    """Prepare model for LoRA training (FP16, no quantization)."""
     
-    # Prepare for training
-    model = prepare_model_for_kbit_training(model)
+    # Enable gradient checkpointing for memory efficiency
+    model.gradient_checkpointing_enable()
     
     # Setup LoRA
     lora_config = LoraConfig(
@@ -27,11 +26,5 @@ def setup_model_for_training(model, model_config: dict):
 
 
 def get_quantization_config(model_config: dict):
-    """Get BitsAndBytes quantization config."""
-    
-    return BitsAndBytesConfig(
-        load_in_4bit=model_config['use_4bit'],
-        bnb_4bit_quant_type=model_config['bnb_4bit_quant_type'],
-        bnb_4bit_compute_dtype=getattr(torch, model_config['bnb_4bit_compute_dtype']),
-        bnb_4bit_use_double_quant=model_config.get('bnb_4bit_use_double_quant', True)
-    )
+    """Get quantization config (no longer used - returns None)."""
+    return None
