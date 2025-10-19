@@ -53,11 +53,14 @@ def prepare_training_data(config_path: str = "configs/data_config.yaml"):
                         for i, step in enumerate(reasoning_steps)
                     ])
                     
+                    # # Get answer
+                    # if len(sample['direct_answers']) > 0:
+                    #     answer = sample['direct_answers'][0]
+                    # else:
+                    #     answer = sample['choices'][sample['correct_choice_idx']]
                     # Get answer
-                    if len(sample['direct_answers']) > 0:
-                        answer = sample['direct_answers'][0]
-                    else:
-                        answer = sample['choices'][sample['correct_choice_idx']]
+                    answer = sample['choices'][sample['correct_choice_idx']]
+
                     
                     train_samples.append({
                         "id": f"aokvqa_{idx}",
