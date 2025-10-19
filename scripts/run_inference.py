@@ -39,13 +39,21 @@ def run_inference(image_path: str, question: str, model_path: str = "models/reas
     print(f"\n📷 Loading image: {image_path}")
     image = Image.open(image_path).convert('RGB')
     
+    # DIFFERENT PROMPTS FOR DIFFERENT AGENTS
+    if "summary" in model_path:
+        prompt_text = f"Question: {question}\n\nProvide a concise single-sentence answer."
+        print("📝 Using SUMMARY prompt")
+    else:
+        prompt_text = f"Question: {question}\n\nProvide detailed step-by-step reasoning."
+        print("📝 Using REASONING prompt")
+    
     # Create conversation
     conversation = [
         {
             "role": "user",
             "content": [
                 {"type": "image", "image": image},
-                {"type": "text", "text": f"Question: {question}\n\nProvide detailed step-by-step reasoning."}
+                {"type": "text", "text": prompt_text}
             ]
         }
     ]
@@ -55,7 +63,7 @@ def run_inference(image_path: str, question: str, model_path: str = "models/reas
     inputs = processor(text=[text_prompt], images=[image], return_tensors="pt").to(device)
     
     # Generate
-    print("\n🧠 Generating reasoning...")
+    print("\n🧠 Generating...")
     with torch.no_grad():
         output = model.generate(
             **inputs,
