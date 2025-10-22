@@ -1,0 +1,15 @@
+# Insight-Chain Demo Dependencies
+
+# Core ML libraries
+transformers>=4.40.0
+torch>=2.0.0
+accelerate>=0.27.0
+
+# Vision-Language utilities
+qwen-vl-utils>=0.0.1
+
+# Image processing
+pillow>=10.0.0
+
+# Web interface
+gradio>=4.0.0
