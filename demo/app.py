@@ -17,7 +17,7 @@ from qwen_vl_utils import process_vision_info
 import gc
 import os
 
-print("🎨 Building Insight-Chain Demo...")
+print("Building Insight-Chain Demo...")
 
 # Memory optimization
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
@@ -30,7 +30,7 @@ processor = AutoProcessor.from_pretrained(
     trust_remote_code=True
 )
 
-print("✅ Processor loaded! Models will load on-demand.")
+print("Processor loaded! Models will load on-demand.")
 
 
 def clear_memory():
@@ -58,7 +58,7 @@ def load_and_run_agent(model_type, image, question):
     # Clear memory before loading
     clear_memory()
     
-    print(f"📥 Loading {model_type} agent...")
+    print(f"Loading {model_type} agent...")
     model_path = f"models/{model_type}_agent/final"
     
     # Load with minimal memory usage
@@ -69,8 +69,8 @@ def load_and_run_agent(model_type, image, question):
         low_cpu_mem_usage=True
     )
     
-    print(f"✅ {model_type.title()} agent loaded")
-    print(f"💾 GPU memory: {torch.cuda.memory_allocated()/1024**3:.2f} GB")
+    print(f"{model_type.title()} agent loaded")
+    print(f"GPU memory: {torch.cuda.memory_allocated()/1024**3:.2f} GB")
     
     # Prepare prompt based on agent type
     if model_type == "reasoning":
@@ -106,7 +106,7 @@ def load_and_run_agent(model_type, image, question):
         return_tensors="pt",
     ).to(device)
     
-    print(f"🧠 Generating ({max_tokens} tokens max)...")
+    print(f"Generating ({max_tokens} tokens max)...")
     
     # Generate with memory optimization
     with torch.no_grad():
@@ -133,14 +133,14 @@ def load_and_run_agent(model_type, image, question):
         clean_up_tokenization_spaces=False
     )[0]
     
-    print(f"✅ {model_type.title()} done!")
+    print(f"{model_type.title()} done!")
     
     # Aggressive cleanup
     del model, inputs, output, generated_ids, image_inputs, video_inputs
     clear_memory()
     
-    print(f"🗑️ {model_type.title()} unloaded")
-    print(f"💾 GPU memory after cleanup: {torch.cuda.memory_allocated()/1024**3:.2f} GB\n")
+    print(f"{model_type.title()} unloaded")
+    print(f"GPU memory after cleanup: {torch.cuda.memory_allocated()/1024**3:.2f} GB\n")
     
     return result
 
@@ -158,28 +158,28 @@ def analyze_image(image, question):
     """
     
     if image is None or not question.strip():
-        return "⚠️ Please upload an image and ask a question!", ""
+        return "Please upload an image and ask a question!", ""
     
     # Resize large images to save memory
     if max(image.size) > 1024:
         image.thumbnail((1024, 1024), Image.Resampling.LANCZOS)
-        print(f"📐 Resized image to {image.size}")
+        print(f"Resized image to {image.size}")
     
     try:
         # Run Agent 1: Reasoning
         print("\n" + "="*70)
-        print("🔍 AGENT 1: REASONING")
+        print("AGENT 1: REASONING")
         print("="*70)
         reasoning_text = load_and_run_agent("reasoning", image, question)
         
         # Run Agent 2: Summary
         print("\n" + "="*70)
-        print("📝 AGENT 2: SUMMARY")
+        print("AGENT 2: SUMMARY")
         print("="*70)
         summary_text = load_and_run_agent("summary", image, question)
         
         print("\n" + "="*70)
-        print("✅ BOTH AGENTS COMPLETE!")
+        print("BOTH AGENTS COMPLETE!")
         print("="*70)
         
         return reasoning_text, summary_text
@@ -187,7 +187,7 @@ def analyze_image(image, question):
     except torch.cuda.OutOfMemoryError as e:
         clear_memory()
         error_msg = (
-            "❌ GPU Out of Memory!\n\n"
+            "GPU Out of Memory!\n\n"
             "Try:\n"
             "1. Smaller image (< 1024x1024)\n"
             "2. Restart Colab runtime\n"
@@ -199,7 +199,7 @@ def analyze_image(image, question):
         
     except Exception as e:
         import traceback
-        error_msg = f"❌ Error: {str(e)}\n\n{traceback.format_exc()}"
+        error_msg = f"Error: {str(e)}\n\n{traceback.format_exc()}"
         print(error_msg)
         return error_msg, ""
 
@@ -208,7 +208,7 @@ def analyze_image(image, question):
 with gr.Blocks(theme=gr.themes.Soft(), title="Insight-Chain") as demo:
     
     # Header
-    gr.Markdown("# 🔗 Insight-Chain: Dual-Agent Visual Reasoning")
+    gr.Markdown("# Insight-Chain: Dual-Agent Visual Reasoning")
     
     gr.Markdown("""
     **Explainable AI that shows its reasoning step-by-step**
@@ -218,8 +218,8 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Insight-Chain") as demo:
     - **Agent 1 (Reasoning):** Generates detailed step-by-step visual analysis
     - **Agent 2 (Summary):** Produces a concise one-sentence answer
     
-    ⚡ Optimized for T4 GPU - models load/unload automatically to fit in 15GB VRAM.  
-    📸 Large images are automatically resized to 1024x1024.
+    Optimized for T4 GPU - models load/unload automatically to fit in 15GB VRAM.  
+    Large images are automatically resized to 1024x1024.
     """)
     
     # Main interface
@@ -228,16 +228,16 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Insight-Chain") as demo:
         with gr.Column():
             image_input = gr.Image(
                 type="pil", 
-                label="📷 Upload Image",
+                label="Upload Image",
                 height=400
             )
             question_input = gr.Textbox(
-                label="❓ Ask a Question",
+                label="Ask a Question",
                 placeholder="What's happening in this image?",
                 lines=2
             )
             submit_btn = gr.Button(
-                "🚀 Analyze Image", 
+                "Analyze Image", 
                 variant="primary", 
                 size="lg"
             )
@@ -245,13 +245,13 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Insight-Chain") as demo:
         # Right column: Outputs
         with gr.Column():
             reasoning_output = gr.Textbox(
-                label="🔍 Agent 1: Detailed Reasoning",
+                label="Agent 1: Detailed Reasoning",
                 lines=10,
                 show_copy_button=True,
                 placeholder="Step-by-step reasoning will appear here..."
             )
             summary_output = gr.Textbox(
-                label="📝 Agent 2: Concise Summary",
+                label="Agent 2: Concise Summary",
                 lines=3,
                 show_copy_button=True,
                 placeholder="One-sentence summary will appear here..."
@@ -261,26 +261,26 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Insight-Chain") as demo:
     gr.Markdown("""
     ---
     
-    ### 💡 Tips for Best Results
+    ### Tips for Best Results
     
     - Use images under 1024x1024 pixels for optimal performance
     - Processing takes approximately 30-40 seconds for both agents
     - Check the console for detailed memory usage logs
     - Works best with clear, well-lit images
     
-    ### 🛠️ Technical Details
+    ### Technical Details
     
     - **Base Model:** Qwen2-VL-2B-Instruct (2B parameters)
     - **Fine-tuning:** LoRA adapters (4.3M trainable parameters)
     - **Training Data:** 1043 samples from A-OKVQA + ScienceQA
     - **Hardware:** Google Colab T4 GPU (free tier)
     
-    ### 🔗 Links
+    ### Links
     
     - **GitHub:** [insight-chain](https://github.com/TejasCThakare/insight-chain)
     - **Author:** Tejas Thakare
     
-    Built with ❤️ using Qwen2-VL, Transformers, and Gradio
+    Built with love using Qwen2-VL, Transformers, and Gradio
     """)
     
     # Connect button to function
@@ -294,7 +294,7 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Insight-Chain") as demo:
 # Launch the app
 if __name__ == "__main__":
     print("\n" + "="*70)
-    print("🚀 Launching Insight-Chain Demo...")
+    print("Launching Insight-Chain Demo...")
     print("="*70)
     
     demo.queue(max_size=1)  # Process one request at a time
