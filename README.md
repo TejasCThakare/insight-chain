@@ -228,9 +228,9 @@ Examples of dual-agent visual reasoning from our Insight-Chain model:
 
 | Demo Screenshots |
 |------------------|
-| ![demo1](demo/results/demo1.png) |
-| ![demo2](demo/results/demo2.png) |
-| ![demo3](demo/results/demo3.png) |
+| ![demo1](results/r2.png) |
+| ![demo2](results/r1.png) |
+| ![demo3](results/r3.png) |
 
 ---
 ## 🔬 Limitations & Future Work
@@ -328,6 +328,7 @@ We welcome contributions! If you'd like to help improve Insight-Chain
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
 
 
