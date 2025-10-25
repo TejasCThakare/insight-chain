@@ -1,5 +1,10 @@
 # 🔗 Insight-Chain: Dual-Agent Visual Reasoning
 
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Colab](https://img.shields.io/badge/platform-Google%20Colab-orange)
+
+
 **Tejas Thakare**
 
 A visual question answering system using dual LoRA adapters on Qwen2-VL-2B for transparent, step-by-step reasoning.
@@ -325,6 +330,7 @@ We welcome contributions! If you'd like to help improve Insight-Chain
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
 
 
