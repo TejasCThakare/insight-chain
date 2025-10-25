@@ -59,11 +59,6 @@ python scripts/run_data_pipeline.py
 - Creates train/validation splits
 - Saves to `data/processed/`
 
-**Output:**
-- `data/processed/train.json`
-- `data/processed/val.json`
-- `data/processed/images/`
-
 ---
 
 ### Step 2: Train Reasoning Agent
@@ -307,3 +302,4 @@ print(result['summary'])    # Concise answer
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
