@@ -4,8 +4,6 @@
 
 A visual question answering system using dual LoRA adapters on Qwen2-VL-2B for transparent, step-by-step reasoning.
 
-⭐ **If you find this project useful, please give us a star on GitHub!**
-
 ---
 
 ## 🚀 Updates
@@ -157,7 +155,7 @@ os.makedirs(backup_dir, exist_ok=True)
 import json
 with open('data/processed/train.json') as f:
     data = json.load(f)
-print(f"✅ Data samples: {len(data)}")
+print(f" Data samples: {len(data)}")
 print(f"📝 Sample: {data[0]['final_answer']}")
 ```
 
@@ -173,7 +171,7 @@ print(f"📝 Sample: {data[0]['final_answer']}")
 if os.path.exists("models/reasoning_agent/final"):
     !du -sh models/reasoning_agent/final
     !cp -r models/reasoning_agent/final {backup_dir}/reasoning_agent_final
-    print(f"✅ Backed up to: {backup_dir}/reasoning_agent_final")
+    print(f" Backed up to: {backup_dir}/reasoning_agent_final")
 ```
 
 ---
@@ -188,7 +186,7 @@ if os.path.exists("models/reasoning_agent/final"):
 if os.path.exists("models/summary_agent/final"):
     !du -sh models/summary_agent/final
     !cp -r models/summary_agent/final {backup_dir}/summary_agent_final
-    print(f"✅ Backed up to: {backup_dir}/summary_agent_final")
+    print(f" Backed up to: {backup_dir}/summary_agent_final")
 ```
 
 ---
@@ -198,7 +196,7 @@ if os.path.exists("models/summary_agent/final"):
 test_image = "data/processed/images/aokvqa_125.jpg"
 test_question = "What's happening in this image?"
 
-print("🧠 REASONING AGENT:")
+print(" REASONING AGENT:")
 !python scripts/run_inference.py \
     --model "models/reasoning_agent/final" \
     --image {test_image} \
@@ -328,6 +326,7 @@ We welcome contributions! If you'd like to help improve Insight-Chain
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
 
 
