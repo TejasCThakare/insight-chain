@@ -228,24 +228,47 @@ print("\n🪶 SUMMARY AGENT:")
 - **Training Time**: ~50 minutes total (Colab T4)
 
 ---
+## 🔬 Limitations & Future Work
 
-## 🧪 Python API
-```python
-from insight_chain import DualAgentVQA
+### Current Limitations
 
-model = DualAgentVQA(
-    reasoning_adapter="models/reasoning_agent/final",
-    summary_adapter="models/summary_agent/final"
-)
+**Model Constraints:**
+- Inference time: ~Takes time for query (may be slow for real-time applications)
+- Memory requirement: 10GB GPU (limits deployment to high-end hardware)
+- Training data: Limited samples (could benefit from larger datasets)
 
-result = model.predict(
-    image="path/to/image.jpg",
-    question="What do you see?"
-)
+**Reasoning Quality:**
+- May struggle with highly abstract or ambiguous visual scenes
+- Occasional inconsistencies between reasoning steps and final summary
+- Limited performance on out-of-domain images
 
-print(result['reasoning'])  # Step-by-step analysis
-print(result['summary'])    # Concise answer
-```
+**System Design:**
+- Sequential agent loading (cannot run both agents simultaneously)
+- Fixed LoRA rank (no dynamic adaptation based on task complexity)
+
+### Planned Improvements
+
+**Short-term (In Progress):**
+-  Quantization support (4-bit/8-bit) for reduced memory footprint
+- Batch inference for faster processing
+- Evaluation metrics on standard VQA benchmarks
+- Improved error handling and logging
+
+**Medium-term:**
+- Multi-language support (Hindi, Spanish, Chinese)
+- Parallel agent loading for faster inference
+- Web-based deployment (Streamlit/FastAPI)
+- Integration with larger VLM bases (7B/13B models)
+
+**Long-term:**
+- Real-time video analysis support
+- Fine-tuning on domain-specific datasets (medical, satellite imagery)
+- Reinforcement learning from human feedback (RLHF)
+- Multi-modal reasoning (text + audio + video)
+
+### Contributing
+
+We welcome contributions! If you'd like to help improve Insight-Chain
 
 ---
 
@@ -292,15 +315,15 @@ print(result['summary'])    # Concise answer
 **Tejas Thakare**  
 - 🔗 GitHub: [@TejasCThakare](https://github.com/TejasCThakare)  
 - 💼 LinkedIn: [Your Profile]  
-- 📧 Email: your.email@example.com
+- 📧 Email: tejas.thakare@alumni.iitm.ac.in
 
-🔍 **Currently seeking ML/Computer Vision opportunities!**
 
 ---
 
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
 
 
