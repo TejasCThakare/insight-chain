@@ -113,7 +113,7 @@ python demo/app.py
 ```
 
 **Access:**
-- Local: `http://localhost:7860`
+- Local: `http://localhost:#`
 - Colab: Public Gradio link generated automatically
 
 ---
@@ -325,6 +325,7 @@ We welcome contributions! If you'd like to help improve Insight-Chain
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
 
 
