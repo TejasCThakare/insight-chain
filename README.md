@@ -156,7 +156,7 @@ import json
 with open('data/processed/train.json') as f:
     data = json.load(f)
 print(f" Data samples: {len(data)}")
-print(f"📝 Sample: {data[0]['final_answer']}")
+print(f" Sample: {data[0]['final_answer']}")
 ```
 
 ---
@@ -326,6 +326,7 @@ We welcome contributions! If you'd like to help improve Insight-Chain
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
 
 
