@@ -264,7 +264,6 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Insight-Chain") as demo:
     ### Tips for Best Results
     
     - Use images under 1024x1024 pixels for optimal performance
-    - Processing takes approximately 30-40 seconds for both agents
     - Check the console for detailed memory usage logs
     - Works best with clear, well-lit images
     
@@ -272,7 +271,7 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Insight-Chain") as demo:
     
     - **Base Model:** Qwen2-VL-2B-Instruct (2B parameters)
     - **Fine-tuning:** LoRA adapters (4.3M trainable parameters)
-    - **Training Data:** 1043 samples from A-OKVQA + ScienceQA
+    - **Training Data:** A-OKVQA + ScienceQA
     - **Hardware:** Google Colab T4 GPU (free tier)
     
     ### Links
@@ -280,7 +279,7 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Insight-Chain") as demo:
     - **GitHub:** [insight-chain](https://github.com/TejasCThakare/insight-chain)
     - **Author:** Tejas Thakare
     
-    Built with love using Qwen2-VL, Transformers, and Gradio
+    
     """)
     
     # Connect button to function
