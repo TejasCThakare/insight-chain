@@ -217,9 +217,6 @@ print("\n🪶 SUMMARY AGENT:")
 ```bash
 !python demo/app.py
 ```
-
-**✅ Complete! Models backed up to:** `/content/drive/MyDrive/insight-chain-models/`
-
 ---
 
 ## 📈 Results
@@ -323,6 +320,7 @@ We welcome contributions! If you'd like to help improve Insight-Chain
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
 
 
