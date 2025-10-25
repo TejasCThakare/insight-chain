@@ -224,6 +224,14 @@ print("\n🪶 SUMMARY AGENT:")
 - **Memory Usage**: 10GB peak (vs 16GB standard)
 - **Training Time**: ~50 minutes total (Colab T4)
 
+Examples of dual-agent visual reasoning from our Insight-Chain model:
+
+| Demo Screenshots |
+|------------------|
+| ![demo1](demo/results/demo1.png) |
+| ![demo2](demo/results/demo2.png) |
+| ![demo3](demo/results/demo3.png) |
+
 ---
 ## 🔬 Limitations & Future Work
 
@@ -320,6 +328,7 @@ We welcome contributions! If you'd like to help improve Insight-Chain
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
 
 
