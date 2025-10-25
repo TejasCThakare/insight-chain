@@ -67,7 +67,7 @@ python scripts/run_training.py --mode reasoning
 ```
 
 **Training details:**
-- Learning Rate: `1e-4`
+- Learning Rate: `2e-4`
 - LoRA Rank: `16`, Alpha: `32`
 - Batch Size: `1` (gradient accumulation: `4`)
 - Time: ~20 minutes (T4 GPU)
@@ -122,7 +122,7 @@ python demo/app.py
 
 ## 🚀 Google Colab: Complete Training Pipeline
 
-Run everything in one session (~70 minutes):
+Run everything in one session:
 
 ### 1. Setup & Mount Drive
 ```python
@@ -302,4 +302,5 @@ print(result['summary'])    # Concise answer
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
