@@ -322,7 +322,8 @@ We welcome contributions! If you'd like to help improve Insight-Chain
 
 **Tejas Thakare**  
 - 🔗 GitHub: [@TejasCThakare](https://github.com/TejasCThakare)  
-- 📧 Email: tejas.thakare@alumni.iitm.ac.in
+- 💼 LinkedIn: [@tejas-t-722758204](https://www.linkedin.com/in/tejas-t-722758204/)
+- 📧 Email: [tejas.thakare@alumni.iitm.ac.in](mailto:tejas.thakare@alumni.iitm.ac.in)
 
 
 ---
@@ -330,6 +331,7 @@ We welcome contributions! If you'd like to help improve Insight-Chain
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
 
 
