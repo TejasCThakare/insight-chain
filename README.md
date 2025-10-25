@@ -224,9 +224,8 @@ print("\n🪶 SUMMARY AGENT:")
 
 ## 📈 Results
 
-- **Inference Time**: ~60 seconds per query (T4 GPU)
 - **Memory Usage**: 10GB peak (vs 16GB standard)
-- **Training Time**: ~70 minutes total (Colab T4)
+- **Training Time**: ~50 minutes total (Colab T4)
 
 ---
 
@@ -302,5 +301,6 @@ print(result['summary'])    # Concise answer
 ## 📜 License
 
 MIT License © 2025 Tejas Thakare
+
 
 
