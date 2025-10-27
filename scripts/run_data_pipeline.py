@@ -23,7 +23,7 @@ def main():
     success = download_datasets()
     
     if not success:
-        print("\n❌ Failed to download datasets")
+        print("\n Failed to download datasets")
         return 1
     
     # Step 2: Prepare training data
@@ -31,11 +31,11 @@ def main():
     success = prepare_training_data()
     
     if not success:
-        print("\n❌ Failed to prepare data")
+        print("\n Failed to prepare data")
         return 1
     
-    print("\n✅ Data pipeline complete!")
-    print("📊 Ready for training!")
+    print("\n Data pipeline complete!")
+    print(" Ready for training!")
     
     return 0
 
