@@ -35,15 +35,15 @@ def main():
     
     # Train reasoning agent
     if args.mode in ["reasoning", "full"]:
-        print("\n🚀 Training Reasoning Agent...")
+        print("\n Training Reasoning Agent...")
         train_reasoning_agent()
     
     # Train summary agent
     if args.mode in ["summary", "full"]:
-        print("\n🚀 Training Summary Agent...")
+        print("\n Training Summary Agent...")
         train_summary_agent()
     
-    print("\n✅ Training complete!")
+    print("\n Training complete!")
     
     return 0
 
