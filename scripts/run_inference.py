@@ -18,14 +18,14 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 def run_inference(image_path: str, question: str, model_path: str = "models/reasoning_agent/final"):
     """Run inference on a single image."""
     
-    print("🔗 Insight-Chain Inference")
+    print(" Insight-Chain Inference")
     print("="*60)
     
     # Load model
-    print(f"\n📥 Loading model from {model_path}...")
+    print(f"\n Loading model from {model_path}...")
     
     device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
-    print(f"🖥️ Using device: {device}")
+    print(f" Using device: {device}")
     
     model = Qwen2VLForConditionalGeneration.from_pretrained(
         model_path,
@@ -36,16 +36,16 @@ def run_inference(image_path: str, question: str, model_path: str = "models/reas
     processor = AutoProcessor.from_pretrained(model_path)
     
     # Load image
-    print(f"\n📷 Loading image: {image_path}")
+    print(f"\n Loading image: {image_path}")
     image = Image.open(image_path).convert('RGB')
     
     # DIFFERENT PROMPTS FOR DIFFERENT AGENTS
     if "summary" in model_path:
         prompt_text = f"Question: {question}\n\nProvide a concise single-sentence answer."
-        print("📝 Using SUMMARY prompt")
+        print(" Using SUMMARY prompt")
     else:
         prompt_text = f"Question: {question}\n\nProvide detailed step-by-step reasoning."
-        print("📝 Using REASONING prompt")
+        print(" Using REASONING prompt")
     
     # Create conversation
     conversation = [
@@ -63,7 +63,7 @@ def run_inference(image_path: str, question: str, model_path: str = "models/reas
     inputs = processor(text=[text_prompt], images=[image], return_tensors="pt").to(device)
     
     # Generate
-    print("\n🧠 Generating...")
+    print("\n Generating...")
     with torch.no_grad():
         output = model.generate(
             **inputs,
@@ -76,7 +76,7 @@ def run_inference(image_path: str, question: str, model_path: str = "models/reas
     
     # Print result
     print("\n" + "="*60)
-    print("📝 RESULT:")
+    print(" RESULT:")
     print("="*60)
     print(result)
     print("="*60)
