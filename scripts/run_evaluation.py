@@ -12,11 +12,11 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 
 def main():
-    print("🔗 Insight-Chain Evaluation")
+    print(" Insight-Chain Evaluation")
     print("="*60)
     
-    print("\n⚠️ Evaluation not yet implemented")
-    print("TODO: Add evaluation logic in src/evaluation/")
+    print("\n Evaluation not yet implemented")
+    print("Need update in src/evaluation/")
     
     return 0
 
