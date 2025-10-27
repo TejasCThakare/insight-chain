@@ -28,7 +28,7 @@ class SummaryAgent:
         self.processor = AutoProcessor.from_pretrained(model_path)
         self.device = next(self.model.parameters()).device
         
-        print(f"✅ Summary agent loaded on {self.device}")
+        print(f" Summary agent loaded on {self.device}")
     
     def extract_answer(
         self,
