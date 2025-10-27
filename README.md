@@ -207,7 +207,7 @@ print(" REASONING AGENT:")
     --image {test_image} \
     --question "{test_question}"
 
-print("\n🪶 SUMMARY AGENT:")
+print("\n SUMMARY AGENT:")
 !python scripts/run_inference.py \
     --model "models/summary_agent/final" \
     --image {test_image} \
@@ -225,9 +225,9 @@ print("\n🪶 SUMMARY AGENT:")
 ## 📈 Results
 
 - **Memory Usage**: 10GB peak (vs 16GB standard)
-- **Training Time**: ~50 minutes total (Colab T4)
+- **Training Time**: ~50-60 minutes total (Colab T4)
 
-Examples of dual-agent visual reasoning from our Insight-Chain model:
+Examples of dual-agent visual reasoning from this Insight-Chain model:
 
 | Demo Screenshots |
 |------------------|
@@ -326,11 +326,9 @@ We welcome contributions! If you'd like to help improve Insight-Chain
 - 📧 Email: [tejas.thakare@alumni.iitm.ac.in](mailto:tejas.thakare@alumni.iitm.ac.in)
 
 
----
 
-## 📜 License
 
-MIT License © 2025 Tejas Thakare
+
 
 
 
