@@ -24,7 +24,7 @@ def train_summary_agent(
 ):
     """Train the summary agent."""
     
-    print("🚀 Training Summary Agent")
+    print(" Training Summary Agent")
     print("="*60)
     
     # Load configs
@@ -42,13 +42,13 @@ def train_summary_agent(
     
     # Check GPU
     if torch.cuda.is_available():
-        print(f"✅ GPU: {torch.cuda.get_device_name(0)}")
-        print(f"✅ VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
+        print(f" GPU: {torch.cuda.get_device_name(0)}")
+        print(f" VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
     else:
-        print("⚠️ No GPU detected!")
+        print(" No GPU detected!")
     
     # Load model
-    print(f"\n📥 Loading {model_config['base_model']}...")
+    print(f"\n Loading {model_config['base_model']}...")
     
     bnb_config = get_quantization_config(model_config)
     
@@ -62,12 +62,12 @@ def train_summary_agent(
     processor = AutoProcessor.from_pretrained(model_config['base_model'])
     
     # Setup LoRA
-    print("\n🔧 Setting up LoRA training...")
+    print("\n Setting up LoRA training...")
     model = setup_model_for_training(model, model_config)
     model.print_trainable_parameters()
     
     # Load datasets (using SummaryDataset)
-    print("\n📂 Loading datasets...")
+    print("\n Loading datasets...")
     train_file = Path(data_config['processed_dir']) / "train.json"
     val_file = Path(data_config['processed_dir']) / "val.json"
     
@@ -84,7 +84,7 @@ def train_summary_agent(
     )
     
     # Training arguments
-    print("\n⚙️ Configuring training...")
+    print("\n Configuring training...")
     training_args = TrainingArguments(
         output_dir=train_config['output_dir'],
         num_train_epochs=train_config['num_train_epochs'],
@@ -116,20 +116,20 @@ def train_summary_agent(
     )
     
     # Train!
-    print("\n🏃 Starting training...")
+    print("\n Starting training...")
     print("="*60)
     trainer.train()
     
     # Save final model
-    print("\n💾 Saving final model...")
+    print("\n Saving final model...")
     output_path = Path(train_config['output_dir']) / "final"
     output_path.mkdir(parents=True, exist_ok=True)
     
     model.save_pretrained(str(output_path))
     processor.save_pretrained(str(output_path))
     
-    print(f"\n✅ Training complete!")
-    print(f"📦 Model saved to: {output_path}")
+    print(f"\n Training complete!")
+    print(f" Model saved to: {output_path}")
     
     return model, processor
 
