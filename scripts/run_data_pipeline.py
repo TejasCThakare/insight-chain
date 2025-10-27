@@ -19,7 +19,7 @@ def main():
     print("="*60)
     
     # Step 1: Download datasets
-    print("\n📦 STEP 1: Downloading datasets...")
+    print("\n STEP 1: Downloading datasets...")
     success = download_datasets()
     
     if not success:
@@ -27,7 +27,7 @@ def main():
         return 1
     
     # Step 2: Prepare training data
-    print("\n🔄 STEP 2: Preparing training data...")
+    print("\n STEP 2: Preparing training data...")
     success = prepare_training_data()
     
     if not success:
